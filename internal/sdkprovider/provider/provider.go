@@ -115,6 +115,8 @@ func Provider(version string) (*schema.Provider, error) {
 			"aiven_gcp_vpc_peering_connection":     vpc.DatasourceGCPVPCPeeringConnection(),
 			"aiven_project_vpc":                    vpc.DatasourceProjectVPC(),
 			"aiven_transit_gateway_vpc_attachment": vpc.DatasourceTransitGatewayVPCAttachment(),
+			"aiven_organization_vpc":               vpc.DataSourceOrganizationVPC(),
+			"aiven_aws_org_vpc_peering_connection": vpc.DatasourceAWSOrgVPCPeeringConnection(),
 
 			// service integrations
 			"aiven_service_integration":          serviceintegration.DatasourceServiceIntegration(),
@@ -224,6 +226,7 @@ func Provider(version string) (*schema.Provider, error) {
 			// vpc
 			"aiven_aws_privatelink":                       vpc.ResourceAWSPrivatelink(),
 			"aiven_aws_vpc_peering_connection":            vpc.ResourceAWSVPCPeeringConnection(),
+			"aiven_aws_org_vpc_peering_connection":        vpc.ResourceAWSOrgVPCPeeringConnection(),
 			"aiven_azure_privatelink":                     vpc.ResourceAzurePrivatelink(),
 			"aiven_azure_privatelink_connection_approval": vpc.ResourceAzurePrivatelinkConnectionApproval(),
 			"aiven_azure_vpc_peering_connection":          vpc.ResourceAzureVPCPeeringConnection(),
@@ -232,6 +235,7 @@ func Provider(version string) (*schema.Provider, error) {
 			"aiven_gcp_vpc_peering_connection":            vpc.ResourceGCPVPCPeeringConnection(),
 			"aiven_project_vpc":                           vpc.ResourceProjectVPC(),
 			"aiven_transit_gateway_vpc_attachment":        vpc.ResourceTransitGatewayVPCAttachment(),
+			"aiven_organization_vpc":                      vpc.ResourceOrganizationVPC(),
 
 			// service integrations
 			"aiven_service_integration":          serviceintegration.ResourceServiceIntegration(),

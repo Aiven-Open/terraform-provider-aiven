@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/aiven/aiven-go-client/v2 v2.33.0
-	github.com/aiven/go-client-codegen v0.76.0
+	github.com/aiven/go-client-codegen v0.76.1-0.20250120120530-60b219eb22e1
 	github.com/avast/retry-go v3.0.0+incompatible
 	github.com/dave/jennifer v1.7.1
 	github.com/docker/go-units v0.5.0
