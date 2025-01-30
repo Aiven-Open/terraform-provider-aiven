@@ -1,4 +1,4 @@
-package acctest
+package template
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 )
 
 func TestCompositionBuilder_SingleResource(t *testing.T) {
-	registry := NewTemplateRegistry("test")
+	registry := NewTemplateRegistry()
 
 	template := `resource "aiven_project" "example_project" {
   project = "{{ .project_name }}"
@@ -30,7 +30,7 @@ func TestCompositionBuilder_SingleResource(t *testing.T) {
 }
 
 func TestCompositionBuilder_TwoIndependentResources(t *testing.T) {
-	registry := NewTemplateRegistry("test")
+	registry := NewTemplateRegistry()
 
 	registry.MustAddTemplate(t, "org_unit", `resource "aiven_organizational_unit" "example_unit" {
   name = "{{ .name }}"
@@ -62,7 +62,7 @@ resource "aiven_billing_group" "example_billing_group" {
 }
 
 func TestCompositionBuilder_DependentResources(t *testing.T) {
-	registry := NewTemplateRegistry("test")
+	registry := NewTemplateRegistry()
 
 	registry.MustAddTemplate(t, "billing_group", `resource "aiven_billing_group" "example_billing_group" {
   name             = "{{ .name }}"
@@ -95,7 +95,7 @@ resource "aiven_project" "example_project" {
 }
 
 func TestCompositionBuilder_ConditionalResource(t *testing.T) {
-	registry := NewTemplateRegistry("test")
+	registry := NewTemplateRegistry()
 
 	registry.MustAddTemplate(t, "project", `resource "aiven_project" "example_project" {
   project = "{{ .name }}"
@@ -152,7 +152,7 @@ resource "aiven_redis" "redis1" {
 }
 
 func TestCompositionBuilder_DataSourceAndResource(t *testing.T) {
-	registry := NewTemplateRegistry("test")
+	registry := NewTemplateRegistry()
 
 	registry.MustAddTemplate(t, "org_data", `data "aiven_organization" "main" {
   name = "{{ .name }}"
@@ -183,7 +183,7 @@ resource "aiven_project" "example_project" {
 }
 
 func TestTemplateNilAndMissingValues(t *testing.T) {
-	registry := NewTemplateRegistry("test")
+	registry := NewTemplateRegistry()
 
 	templateStr := `resource "aiven_service" "example" {
   project      = "{{ .project }}"
@@ -394,7 +394,7 @@ resource "aiven_kafka_user" "example_service_user" {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			registry := NewTemplateRegistry("test")
+			registry := NewTemplateRegistry()
 
 			// Add all templates
 			for key, tmpl := range tt.templates {

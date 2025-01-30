@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 
 	acc "github.com/aiven/terraform-provider-aiven/internal/acctest"
+	"github.com/aiven/terraform-provider-aiven/internal/acctest/template"
 	"github.com/aiven/terraform-provider-aiven/internal/common"
 	"github.com/aiven/terraform-provider-aiven/internal/schemautil"
 )
@@ -22,7 +23,7 @@ const kafkaQuotaResource = "aiven_kafka_quota"
 
 func TestAccAivenKafkaQuota(t *testing.T) {
 	var (
-		registry    = acc.NewTemplateRegistry(kafkaQuotaResource)
+		registry    = template.NewTemplateRegistry()
 		randName    = acctest.RandStringFromCharSet(10, acctest.CharSetAlphaNum)
 		serviceName = fmt.Sprintf("test-acc-sr-%s", randName)
 		projectName = os.Getenv("AIVEN_PROJECT_NAME")
@@ -68,7 +69,7 @@ resource "aiven_kafka_quota" "{{ .resource_name }}" {
   {{- end }}
 }`)
 
-	var newComposition = func() *acc.CompositionBuilder {
+	var newComposition = func() *template.CompositionBuilder {
 		return registry.NewCompositionBuilder().
 			Add("project_data", map[string]interface{}{
 				"project": projectName}).
