@@ -51,6 +51,11 @@ var aivenOrganizationVPCSchema = map[string]*schema.Schema{
 		Computed:    true,
 		Description: "Time of creation of the VPC.",
 	},
+	"update_time": {
+		Type:        schema.TypeString,
+		Computed:    true,
+		Description: "Time of creation of the VPC.",
+	},
 }
 
 func ResourceOrganizationVPC() *schema.Resource {
@@ -82,7 +87,7 @@ func resourceOrganizationVPCCreate(ctx context.Context, d *schema.ResourceData, 
 				NetworkCidr: cidr,
 			},
 		},
-		PeeringConnections: make([]organizationvpc.PeeringConnectionIn, 0),
+		PeeringConnections: make([]organizationvpc.PeeringConnectionIn, 0), // nil here would cause an error from the API
 	})
 	if err != nil {
 		return err
@@ -126,7 +131,7 @@ func resourceOrganizationVPCRead(ctx context.Context, d *schema.ResourceData, cl
 		return err
 	}
 
-	//TODO: verify that there is only one possible cloud
+	// currently we support only 1 cloud per VPC
 	if len(resp.Clouds) != 1 {
 		return fmt.Errorf("expected exactly 1 cloud, got %d", len(resp.Clouds))
 	}
@@ -147,6 +152,9 @@ func resourceOrganizationVPCRead(ctx context.Context, d *schema.ResourceData, cl
 		return err
 	}
 	if err = d.Set("create_time", resp.CreateTime.String()); err != nil {
+		return err
+	}
+	if err = d.Set("update_time", resp.UpdateTime.String()); err != nil {
 		return err
 	}
 

@@ -132,7 +132,7 @@ func resourceAWSOrgVPCPeeringConnectionRead(ctx context.Context, d *schema.Resou
 			return diag.FromErr(schemautil.ResourceReadHandleNotFound(err, d))
 		}
 
-		return diag.Errorf("Error finding VPC: %s", err)
+		return diag.Errorf("failed to get VPC with ID %q: %s", orgVpcID, err)
 	}
 
 	pc := lookupAWSPeeringConnection(vpc, awsAccountID, awsVpcID, awsRegion)
@@ -184,7 +184,7 @@ func resourceAWSOrgVPCPeeringConnectionDelete(ctx context.Context, d *schema.Res
 			return nil // consider already deleted
 		}
 
-		return diag.Errorf("Error finding VPC: %s", err)
+		return diag.Errorf("failed to get VPC with ID %q: %s", vpcID, err)
 	}
 
 	if err = deletePeeringConnection(

@@ -134,7 +134,7 @@ func resourceAzureOrgVPCPeeringConnectionRead(ctx context.Context, d *schema.Res
 			return diag.FromErr(schemautil.ResourceReadHandleNotFound(err, d))
 		}
 
-		return diag.Errorf("Error finding VPC: %s", err)
+		return diag.Errorf("failed to get VPC with ID %q: %s", vpcID, err)
 	}
 
 	pc := lookupAzurePeeringConnection(vpc, cloudAccount, vnetName, resourceGroup)
@@ -182,7 +182,7 @@ func resourceAzureOrgVPCPeeringConnectionDelete(ctx context.Context, d *schema.R
 			return nil // consider already deleted
 		}
 
-		return diag.Errorf("Error finding VPC: %s", err)
+		return diag.Errorf("failed to get VPC with ID %q: %s", vpcID, err)
 	}
 
 	if err = deletePeeringConnection(
