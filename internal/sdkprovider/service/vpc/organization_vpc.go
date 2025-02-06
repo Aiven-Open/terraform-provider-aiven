@@ -54,7 +54,7 @@ var aivenOrganizationVPCSchema = map[string]*schema.Schema{
 	"update_time": {
 		Type:        schema.TypeString,
 		Computed:    true,
-		Description: "Time of creation of the VPC.",
+		Description: "Time of the last update of the VPC.",
 	},
 }
 
